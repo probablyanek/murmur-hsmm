@@ -108,9 +108,9 @@ def train_model(
     model = instantiate_model(hparams)
     if use_gpu:
         # Move models and data to GPU. Move model before optimiser created.
-        model = model.cuda()
+        model = model
         if class_weights is not None:
-            class_weights = class_weights.cuda()
+            class_weights = class_weights
 
     num_parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"Training model with {num_parameters} params")
@@ -127,8 +127,8 @@ def train_model(
         model.train()
         for i, (train_features, train_labels, train_lengths) in enumerate(train_dataloader):
             if use_gpu:
-                train_features = train_features.cuda()
-                train_labels = train_labels.cuda()
+                train_features = train_features
+                train_labels = train_labels
 
             # Train features is [B, F, T] whereas labels is [B]
             optimiser.zero_grad()
@@ -144,8 +144,8 @@ def train_model(
             val_losses = []
             for val_features, val_labels, val_lengths in val_dataloader:
                 if use_gpu:
-                    val_features = val_features.cuda()
-                    val_labels = val_labels.cuda()
+                    val_features = val_features
+                    val_labels = val_labels
                 out = model(val_features, val_lengths)
                 loss = criterion(out, val_labels)
                 val_losses.append(loss * val_features.shape[0])
@@ -177,13 +177,13 @@ def train_model(
     #    Re-load best model
     model = load_single_network_fold(model_folder, fold, hparams)
     if use_gpu:
-        model = model.cuda()
+        model = model
     return model, best_val_loss
 
 
 def predict_single_model(model, features, lengths, gpu):
     if gpu:
-        features = features.cuda()
+        features = features
 
     results = []
     with torch.no_grad():
@@ -255,7 +255,7 @@ def instantiate_model(hparams):
 
 def load_single_network_fold(model_folder, fold, hparams):
     model = instantiate_model(hparams)
-    model.load_state_dict(torch.load(pathlib.Path(model_folder) / f"model_{fold}.pt"))
+    model.load_state_dict(torch.load(pathlib.Path(model_folder) / f"model_{fold}.pt", map_location ='cpu'))
     model.eval()
     return model
 

@@ -10,10 +10,8 @@ notebooks/
 catboost_info/
 *.pyc
 .devcontainer/
+training_data/
 
-# Model files
-*.pt
-*.cbm
 
 # Generated figures
 results/figures/

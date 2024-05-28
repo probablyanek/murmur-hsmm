@@ -80,7 +80,7 @@ def run_challenge_model(model, data, recordings, verbose):
     fs = get_frequency(data)
 
     for model_fold in model:
-        model_fold["network"].cuda()
+        model_fold["network"]
 
     location_predictions = defaultdict(list)
     location_signal_quals = defaultdict(list)
