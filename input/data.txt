@@ -1,0 +1,7 @@
+data 4 4000
+AV place.hea data_AV.wav place.tsv
+PV place.hea data_PV.wav place.tsv
+TV place.hea data_TV.wav place.tsv
+MV place.hea data_MV.wav place.tsv
+#Age: 
+#Pregnancy status: 
