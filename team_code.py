@@ -200,13 +200,13 @@ def train_challenge_model_full(
     if hparams is None:
         # Use same default parameters CUED_Acoustics PhysioNet entry
         hparams = {
-            "rnn_hidden_size": 60,
-            "rnn_num_layers": 3,
-            "rnn_dropout": 0.1,
-            "ann_hidden_size": [60, 40],
-            "ann_dropout": 0.1,
-            "batch_size": 32,
-            "lr": 0.0001,
+            "rnn_hidden_size": 128,  # increased from 60
+            "rnn_num_layers": 4,     # increased from 3
+            "rnn_dropout": 0.05,     # decreased from 0.1
+            "ann_hidden_size": [128, 64, 32],  # increased layers and sizes
+            "ann_dropout": 0.05,     # decreased from 0.1
+            "batch_size": 16,        # decreased from 32
+            "lr": 0.001,             # increased from 0.0001
         }
 
     # Create a folder for the model if it does not already exist.
